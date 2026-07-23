@@ -214,6 +214,6 @@
   }
 
   .roadmap-step h3 + p {
-    margin-top: calc(var(--space-1) * -1);
+    margin-top: calc(var(--space-1) * 1);
   }
 }
