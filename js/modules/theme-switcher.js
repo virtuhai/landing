@@ -25,7 +25,7 @@ function storeTheme(theme) {
 
 function getSystemTheme() {
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  return prefersLight ? 'light' : 'dark';
+  return prefersLight ? 'dark' : 'light';
 }
 
 function applyTheme(theme, toggles) {
