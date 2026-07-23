@@ -6,7 +6,7 @@ export const CONFIG = Object.freeze({
     storageKey: 'virtuhai:theme',
   },
   locale: {
-    default: 'uk',
+    default: 'en',
     storageKey: 'virtuhai:language',
   },
   motion: {
