@@ -12,10 +12,10 @@
     (function () {
       try {
         var stored = localStorage.getItem('virtuhai:theme');
-        var theme = stored || 'dark';
+        var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 
         var storedLanguage = localStorage.getItem('virtuhai:language');
-        var language = storedLanguage || 'uk';
+        var language = storedLanguage === 'uk' ? 'uk' : 'en';
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.setAttribute('data-language', language);
         document.documentElement.setAttribute('lang', language);
