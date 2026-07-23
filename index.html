@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-language="en">
+<html lang="uk" data-theme="dark" data-language="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,10 @@
     (function () {
       try {
         var stored = localStorage.getItem('virtuhai:theme');
-        var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        var theme = stored || 'dark';
+
         var storedLanguage = localStorage.getItem('virtuhai:language');
-        var language = storedLanguage === 'uk' ? 'uk' : 'en';
+        var language = storedLanguage || 'uk';
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.setAttribute('data-language', language);
         document.documentElement.setAttribute('lang', language);
