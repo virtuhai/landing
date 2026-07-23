@@ -1,0 +1,104 @@
+/**
+ * tokens.css — VIRTUHAI Design Tokens
+ * ----------------------------------------------------------------
+ * Single source of truth for color, type, spacing and motion.
+ * Values below were sampled directly from the approved mockups
+ * (LANDING_DESIGN1*.jpg) so implementation stays color-accurate.
+ * Only primitives live here — no component-specific rules.
+ */
+
+:root {
+  /* ── Color: dark theme (default) ───────────────────────────── */
+  --color-void: #04060b;             /* page background */
+  --color-surface: #0a0f1a;          /* header, panels, elevated blocks */
+  --color-surface-raised: #10182a;   /* solid buttons, hovered surfaces */
+  --color-surface-card: #0d1320;     /* feature / node cards on dark */
+
+  --color-signal: #0057d8;           /* primary accent — brand blue */
+  --color-signal-bright: #2e8bff;    /* lighter blue for lines/glow */
+  --color-signal-dim: #0a2a63;       /* deep blue for ambient glow */
+
+  --color-beacon: #f5790c;           /* secondary accent — brand orange */
+  --color-beacon-bright: #ff9a3d;    /* lighter orange for hover/glow */
+
+  --color-ink: #f5f6f8;              /* primary text on dark */
+  --color-mist: #8891a0;             /* muted text on dark */
+  --color-line: rgba(245, 246, 248, 0.10); /* hairlines / borders on dark */
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --font-sans: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-hero: clamp(2.25rem, 3.4vw + 1.2rem, 3.55rem);
+  --fs-h2: clamp(1.55rem, 1.5vw + 1.1rem, 2.25rem);
+  --fs-h3: clamp(1.25rem, 0.6vw + 1rem, 1.5rem);
+  --fs-body: 1rem;
+  --fs-extrasmall: 0.675rem;
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.8125rem;
+  --fs-label: 0.75rem;
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.6;
+
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.09em;
+  --tracking-wider: 0.14em;
+
+  /* ── Spacing scale (4px base) ───────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-10: 5rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 4vw, 4rem);
+  --header-height: 76px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* ── Motion ─────────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-med: 450ms;
+  --dur-slow: 900ms;
+  --dur-sweep: 6000ms;   /* orbit ring rotation — mirrors CONFIG.orbit.sweepDurationMs */
+  --dur-travel: 2600ms;  /* signal-dot travel along connector lines */
+
+  /* ── Z-index scale ──────────────────────────────────────────── */
+  --z-header: 100;
+  --z-menu: 200;
+}
+
+/* ── Light theme override ──────────────────────────────────────
+   Toggled via [data-theme="light"] on <html>, set by theme-switcher.js */
+[data-theme='light'] {
+  --color-void: #f1f1ef;
+  --color-surface: #ffffff;
+  --color-surface-raised: #eceef2;
+  --color-surface-card: #ffffff;
+
+  --color-signal-dim: #d8e6ff;
+
+  --color-ink: #14161b;
+  --color-mist: #5b6270;
+  --color-line: rgba(20, 22, 27, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-med: 0ms;
+    --dur-slow: 0ms;
+    --dur-sweep: 0ms;
+    --dur-travel: 0ms;
+  }
+}

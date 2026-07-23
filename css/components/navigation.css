@@ -1,0 +1,244 @@
+/**
+ * navigation.css — Sticky header, desktop nav, theme toggle,
+ * hamburger trigger and the mobile slide-down menu panel.
+ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--color-void) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-line);
+  transition: background var(--dur-med) var(--ease-out),
+              border-color var(--dur-med) var(--ease-out);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-width: 0;
+  width: 100%;
+}
+
+/* ── Brand ── */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand__logo {
+  height: 33px;
+  width: auto;
+}
+
+/* ── Desktop nav links ── */
+.nav-links {
+  display: none;
+  align-items: center;
+  min-width: 0;
+  gap: clamp(0.75rem, 1.5vw, var(--space-3));
+}
+
+.nav-links a {
+  font-size: var(--fs-extrasmall);
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-mist);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--color-ink);
+}
+
+/* ── Header-right action cluster ── */
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+/* English / Ukrainian segmented language control. */
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+}
+
+.language-toggle__btn {
+  min-width: 2rem;
+  height: 1.875rem;
+  padding-inline: 0.35rem;
+  border-radius: var(--radius-pill);
+  color: var(--color-mist);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.language-toggle__btn[aria-pressed='true'] {
+  background: #14161b;
+  color: #f5f6f8;
+}
+
+/* ── Theme toggle (sun / moon segmented control) ── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-line);
+}
+
+.theme-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--color-mist);
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.theme-toggle__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-toggle__btn[aria-pressed='true'] {
+  /* Fixed, not theme-variable — same reasoning as .btn--solid-dark. */
+  background: #14161b;
+  color: #f5f6f8;
+}
+
+/* ── Hamburger trigger (mobile only) ── */
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  color: var(--color-ink);
+}
+
+.hamburger svg {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transition: opacity var(--dur-fast) var(--ease-out),
+              transform var(--dur-med) var(--ease-out);
+}
+
+.hamburger [data-menu-icon-close] {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.7);
+}
+
+.hamburger.is-open [data-menu-icon-open] {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.7);
+}
+
+.hamburger.is-open [data-menu-icon-close] {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* ── Mobile menu panel ── */
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--z-menu);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+  padding: var(--space-3) var(--container-pad) var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--dur-med) var(--ease-out),
+              opacity var(--dur-med) var(--ease-out),
+              visibility 0s linear var(--dur-med);
+}
+
+.mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform var(--dur-med) var(--ease-out),
+              opacity var(--dur-med) var(--ease-out),
+              visibility 0s;
+}
+
+.mobile-menu__links {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.mobile-menu__links a {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.mobile-menu__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+/* ── Breakpoint: reveal desktop chrome, hide mobile chrome ── */
+@media (min-width: 1180px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .hamburger,
+  .mobile-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 1179.98px) {
+  /* On mobile, the header only shows brand + hamburger; theme toggle
+     and Contact move into the slide-down .mobile-menu instead. */
+  .site-header__actions > .theme-toggle,
+  .site-header__actions > .language-toggle,
+  .site-header__actions > .btn--solid-dark {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-menu__footer .btn--block {
+    flex-basis: 100%;
+  }
+}

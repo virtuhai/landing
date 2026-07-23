@@ -1,0 +1,7 @@
+# virtuhai.com — robots.txt
+# Fully static presentation site: everything is public, nothing to disallow.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://virtuhai.com/sitemap.xml

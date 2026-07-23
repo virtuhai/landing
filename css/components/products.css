@@ -1,0 +1,192 @@
+/** products.css — Stage 5: VIRTUHAI product platform cards. */
+
+.products {
+  padding-block: var(--space-16);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+
+.products__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.7fr);
+  gap: var(--space-8);
+  align-items: end;
+}
+
+.products__heading h2 {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h2);
+}
+
+.products__heading h2 span {
+  color: var(--color-beacon);
+}
+
+.products__heading > p {
+  max-width: 40ch;
+}
+
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 18rem;
+  padding: var(--space-4);
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-card);
+  transition: transform var(--dur-med) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: auto -25% -60% 25%;
+  width: 14rem;
+  height: 14rem;
+  border: 1px solid color-mix(in srgb, var(--product-accent) 42%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 4rem color-mix(in srgb, var(--product-accent) 13%, transparent);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--product-accent) 60%, var(--color-line));
+  background: color-mix(in srgb, var(--product-accent) 6%, var(--color-surface-card));
+}
+
+.product-card:hover::before {
+  transform: scale(1.12) translate(-0.75rem, -0.75rem);
+}
+
+.product-card--home { --product-accent: var(--color-signal-bright); }
+.product-card--watch { --product-accent: #52c7d6; }
+.product-card--drive { --product-accent: #7e91ff; }
+.product-card--defense { --product-accent: var(--color-beacon); }
+.product-card--lab { --product-accent: #a98bff; }
+.product-card--sdk { --product-accent: #3bd1a0; }
+
+.product-card__topline,
+.product-card h3,
+.product-card p,
+.product-card ul {
+  position: relative;
+  z-index: 1;
+}
+
+.product-card__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.product-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid color-mix(in srgb, var(--product-accent) 60%, var(--color-line));
+  border-radius: var(--radius-md);
+  color: var(--product-accent);
+}
+
+.product-card__icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.product-card__icon--code {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: -0.12em;
+}
+
+.product-card__status {
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.product-card h3 {
+  margin-top: var(--space-4);
+  font-size: var(--fs-h3);
+}
+
+.product-card h3 span {
+  color: var(--product-accent);
+}
+
+.product-card h3 + p {
+  margin-top: var(--space-2);
+  max-width: 29ch;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+.product-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.product-card li {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+}
+
+@media (max-width: 959.98px) {
+  .products__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .products {
+    padding-block: var(--space-10);
+  }
+
+  .products__heading {
+    display: block;
+  }
+
+  .products__heading > p {
+    margin-top: var(--space-3);
+  }
+
+  .products__grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-4);
+  }
+
+  .product-card {
+    min-height: 0;
+    padding: var(--space-3);
+  }
+
+  .product-card h3 {
+    margin-top: var(--space-3);
+  }
+
+  .product-card ul {
+    margin-top: var(--space-3);
+    padding-top: 0;
+  }
+}

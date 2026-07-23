@@ -1,0 +1,82 @@
+/**
+ * buttons.css — Shared button/CTA styles used across all sections.
+ * Three variants seen in the approved mockups:
+ *   --outline-blue   e.g. "Explore Vision"
+ *   --outline-orange e.g. "Roadmap"
+ *   --solid-dark     e.g. header "Contact"
+ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+/* Primary action — blue outline */
+.btn--outline-blue {
+  border-color: var(--color-signal-bright);
+  color: var(--color-signal-bright);
+}
+
+.btn--outline-blue:hover {
+  background: color-mix(in srgb, var(--color-signal-bright) 12%, transparent);
+}
+
+/* Secondary action — orange outline */
+.btn--outline-orange {
+  border-color: var(--color-beacon);
+  color: var(--color-beacon);
+}
+
+.btn--outline-orange:hover {
+  background: color-mix(in srgb, var(--color-beacon) 12%, transparent);
+}
+
+/* Tertiary / chrome action — solid dark, used in the header.
+   Deliberately NOT theme-variable: the mockup keeps this pill a fixed
+   dark accent in both light and dark mode rather than following
+   --color-surface-raised (which would make it blend into a light
+   page background). */
+.btn--solid-dark {
+  background: #14161b;
+  color: #f5f6f8;
+  border-color: transparent;
+  padding: 0.7rem 1.3rem;
+}
+
+.btn--solid-dark:hover {
+  background: #23262e;
+}
+
+/* Compact size used inside the mobile menu */
+.btn--block {
+  width: 100%;
+  justify-content: center;
+}

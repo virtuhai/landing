@@ -1,0 +1,125 @@
+/** footer.css — Stage 10: navigation, contact and project footer. */
+
+.site-footer {
+  padding-top: var(--space-10);
+  background: var(--color-void);
+  border-top: 1px solid var(--color-line);
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1.4fr) minmax(9rem, 0.55fr) minmax(13rem, 0.75fr);
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+.site-footer__brand > a {
+  display: inline-flex;
+}
+
+.site-footer__logo {
+  width: auto;
+  height: 2.25rem;
+}
+
+.site-footer__brand > p {
+  max-width: 27ch;
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.site-footer__label {
+  margin-bottom: var(--space-2);
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.site-footer__nav,
+.site-footer__contact {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+}
+
+.site-footer__nav a,
+.site-footer__contact > a {
+  width: max-content;
+  color: var(--color-ink);
+  font-size: var(--fs-small);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.site-footer__nav a:hover,
+.site-footer__contact > a:hover {
+  color: var(--color-signal-bright);
+}
+
+.site-footer__contact > a span {
+  color: var(--color-beacon);
+}
+
+.site-footer__social {
+  margin-top: var(--space-1);
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+}
+
+.site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.site-footer__bottom p,
+.site-footer__bottom a {
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+}
+
+.site-footer__bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.site-footer__bottom a:hover {
+  color: var(--color-ink);
+}
+
+.site-footer__bottom svg {
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(-90deg);
+}
+
+@media (max-width: 700px) {
+  .site-footer {
+    padding-top: var(--space-8);
+  }
+
+  .site-footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5) var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+
+  .site-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer__logo {
+    height: 2rem;
+  }
+
+  .site-footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

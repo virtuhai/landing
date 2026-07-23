@@ -1,0 +1,121 @@
+/**
+ * cards.css — Feature badges (under the hero CTAs) and the orbit
+ * node chips (icon + label) used inside the hero diagram.
+ */
+
+/* ── Feature badges ── */
+.feature-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+}
+
+.feature-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.feature-badge__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-line);
+  flex-shrink: 0;
+}
+
+.feature-badge__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.feature-badge__icon[data-tone='blue'] { color: var(--color-signal-bright); }
+.feature-badge__icon[data-tone='orange'] { color: var(--color-beacon); }
+.feature-badge__icon[data-tone='neutral'] { color: var(--color-mist); }
+
+.feature-badge__label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+@media (max-width: 640px) {
+  .feature-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+
+  .feature-badge {
+    align-items: flex-start;
+    padding: var(--space-2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-card);
+  }
+}
+
+/* ── Orbit node chips (inside the hero diagram) ── */
+.orbit__node {
+  position: absolute;
+  left: var(--node-x);
+  top: var(--node-y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: max-content;
+  max-width: 110px;
+  text-align: center;
+}
+
+.orbit__node-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-line);
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  color: var(--color-signal-bright);
+}
+
+.orbit__node[data-tone='orange'] .orbit__node-icon {
+  color: var(--color-beacon);
+}
+
+.orbit__node-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.orbit__node-label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-mist);
+}
+
+/* Labels are dropped on narrow screens — the compact orbit keeps
+   only icons, matching the simplified mobile mockup. */
+@media (max-width: 640px) {
+  .orbit__node-label {
+    display: none;
+  }
+
+  .orbit__node-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .orbit__node-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}

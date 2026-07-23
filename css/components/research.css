@@ -1,0 +1,256 @@
+/** research.css — Stage 7: development status and research domains. */
+
+.research {
+  padding-block: var(--space-16);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+
+.research__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.7fr);
+  gap: var(--space-8);
+  align-items: end;
+}
+
+.research__heading h2 {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h2);
+}
+
+.research__heading h2 span {
+  color: var(--color-beacon);
+}
+
+.research__heading > p {
+  max-width: 42ch;
+}
+
+.research__status {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--color-signal-dim) 34%, transparent), transparent 58%);
+}
+
+.research-status__label,
+.research-domain__label {
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.research-status__overview h3 {
+  margin-top: var(--space-2);
+  font-size: var(--fs-h3);
+}
+
+.research-status__overview h3 span {
+  color: var(--color-signal-bright);
+}
+
+.research-status__overview h3 + p {
+  margin-top: var(--space-2);
+  max-width: 43ch;
+  font-size: var(--fs-small);
+}
+
+.research-status__signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--space-3);
+  color: var(--color-signal-bright);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.research-status__signal i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-signal-bright);
+  box-shadow: 0 0 0.7rem var(--color-signal-bright);
+  animation: research-signal-pulse 2.2s var(--ease-out) infinite;
+}
+
+.research-status__stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.research-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+}
+
+.research-stage:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.55rem;
+  left: calc(50% + 1.65rem);
+  width: calc(100% - 3.3rem);
+  height: 1px;
+  background: var(--color-line);
+}
+
+.research-stage > span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+}
+
+.research-stage strong,
+.research-stage small {
+  display: block;
+}
+
+.research-stage strong {
+  font-size: var(--fs-small);
+}
+
+.research-stage small {
+  margin-top: 0.2rem;
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+}
+
+.research-stage--active > span {
+  border-color: var(--color-signal-bright);
+  color: var(--color-signal-bright);
+  box-shadow: 0 0 1rem color-mix(in srgb, var(--color-signal-bright) 35%, transparent);
+}
+
+.research-stage--active strong,
+.research-stage--active small {
+  color: var(--color-signal-bright);
+}
+
+.research__domains {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.research-domain {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-card);
+}
+
+.research-domain__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  color: var(--color-signal-bright);
+}
+
+.research-domain__icon svg {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.research-domain h3 {
+  margin-top: var(--space-1);
+  font-size: var(--fs-h3);
+}
+
+.research-domain h3 + p {
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .research__status {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 700px) {
+  .research {
+    padding-block: var(--space-10);
+  }
+
+  .research__heading {
+    display: block;
+  }
+
+  .research__heading > p {
+    margin-top: var(--space-3);
+  }
+
+  .research__status {
+    margin-top: var(--space-4);
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .research-status__stages {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: var(--space-1);
+  }
+
+  .research-stage {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    width: 100%;
+    padding: var(--space-1) 0;
+    text-align: left;
+  }
+
+  .research-stage:not(:last-child)::after {
+    top: calc(100% - 0.15rem);
+    left: 1.55rem;
+    width: 1px;
+    height: var(--space-2);
+  }
+
+  .research-stage > span {
+    grid-row: 1 / span 2;
+  }
+
+  .research-stage small {
+    margin-top: 0;
+  }
+
+  .research__domains {
+    grid-template-columns: 1fr;
+  }
+
+  .research-domain {
+    padding: var(--space-3);
+  }
+}

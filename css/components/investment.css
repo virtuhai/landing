@@ -1,0 +1,244 @@
+/** investment.css — Stage 9: investor context, milestones and contact. */
+
+.investment {
+  padding-block: var(--space-16);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+
+.investment__container {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.74fr) minmax(0, 1.26fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.investment__heading {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+}
+
+.investment__heading h2 {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h2);
+}
+
+.investment__heading h2 span {
+  color: var(--color-beacon);
+}
+
+.investment__heading > p:last-child {
+  margin-top: var(--space-3);
+  max-width: 35ch;
+}
+
+.investment__layout {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.investment__case,
+.investment__stage {
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-card);
+}
+
+.investment__case {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-signal-dim) 26%, transparent), var(--color-surface-card) 57%);
+}
+
+.investment__label {
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.investment__case h3,
+.investment__stage h3 {
+  margin-top: var(--space-2);
+  font-size: var(--fs-h3);
+}
+
+.investment__case h3 + p,
+.investment__stage h3 + p {
+  margin-top: var(--space-2);
+  max-width: 57ch;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+.investment__priorities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.investment__priorities li {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-line);
+}
+
+.investment__priorities span,
+.investment__priorities strong,
+.investment__priorities p {
+  display: block;
+}
+
+.investment__priorities span {
+  color: var(--color-signal-bright);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+}
+
+.investment__priorities strong {
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+}
+
+.investment__priorities p {
+  margin-top: 0.4rem;
+  font-size: var(--fs-label);
+  line-height: 1.5;
+}
+
+.investment__stage {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-beacon) 10%, transparent), var(--color-surface-card) 60%);
+}
+
+.investment__stage h3 span {
+  color: var(--color-signal-bright);
+}
+
+.investment__path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+}
+
+.investment__path li {
+  position: relative;
+  padding-top: 1.35rem;
+  color: var(--color-mist);
+  font-size: var(--fs-label);
+  font-weight: 700;
+}
+
+.investment__path i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-surface-card);
+}
+
+.investment__path li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 0.35rem;
+  left: 0.85rem;
+  width: calc(100% - 0.85rem);
+  height: 1px;
+  background: var(--color-line);
+}
+
+.investment__path .is-active {
+  color: var(--color-signal-bright);
+}
+
+.investment__path .is-active i {
+  border-color: var(--color-signal-bright);
+  background: var(--color-signal-bright);
+  box-shadow: 0 0 0.75rem color-mix(in srgb, var(--color-signal-bright) 65%, transparent);
+}
+
+.investment__contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: var(--space-5);
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-beacon);
+  border-radius: var(--radius-md);
+  color: var(--color-beacon);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.investment__contact:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--color-beacon) 12%, transparent);
+}
+
+.investment__contact svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.investment__email {
+  margin-top: var(--space-2);
+  color: var(--color-mist);
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 959.98px) {
+  .investment__container {
+    grid-template-columns: 1fr;
+  }
+
+  .investment__heading {
+    position: static;
+  }
+
+  .investment__heading > p:last-child {
+    max-width: 49ch;
+  }
+}
+
+@media (max-width: 700px) {
+  .investment {
+    padding-block: var(--space-10);
+  }
+
+  .investment__case,
+  .investment__stage {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .investment__priorities {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .investment__path {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .investment__path li {
+    padding: 0 0 0 1.45rem;
+  }
+
+  .investment__path i {
+    top: 0.12rem;
+  }
+
+  .investment__path li:not(:last-child)::after {
+    top: 0.87rem;
+    left: 0.35rem;
+    width: 1px;
+    height: calc(100% + 0.2rem);
+  }
+}

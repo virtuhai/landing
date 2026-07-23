@@ -1,0 +1,381 @@
+/**
+ * hero.css — Hero section, rebuilt to match the approved mockups
+ * (LANDING_DESIGN1*.jpg). Layout: two-column grid — copy + feature
+ * badges on the left, the orbit diagram on the right — followed by
+ * a full-bleed procedurally generated "night earth" band.
+ */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100svh - var(--header-height));
+  overflow: hidden;
+  background: var(--color-void);
+}
+
+/* ── Grid ── */
+.hero__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-areas:
+    "content orbit"
+    "features orbit";
+  column-gap: var(--space-8);
+  row-gap: var(--space-4);
+  align-items: start;
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.hero__content {
+  grid-area: content;
+  max-width: 640px;
+}
+
+.hero__content > * + * {
+  margin-top: var(--space-3);
+}
+
+.hero__badge {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  margin-top: var(--space-4);
+}
+
+.hero__title .accent {
+  color: var(--color-beacon);
+}
+
+.hero__subtext {
+  font-size: 1.0625rem;
+  color: var(--color-mist);
+  max-width: 46ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.hero__features {
+  grid-area: features;
+}
+
+/* ── Orbit diagram ── */
+.hero__orbit-wrap {
+  grid-area: orbit;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: var(--space-4);
+}
+
+.orbit {
+  position: relative;
+  width: min(34vw, 460px);
+  aspect-ratio: 1;
+}
+
+.orbit__glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, var(--color-signal-dim) 0%, transparent 65%);
+  opacity: 0.65;
+  animation: glow-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.orbit__rings {
+  position: absolute;
+  inset: 0;
+  animation: orbit-rotate 140s linear infinite;
+}
+
+.orbit__ring {
+  position: absolute;
+  border: 1px dashed var(--color-line);
+  border-radius: 50%;
+  inset: 0;
+}
+
+.orbit__ring--2 { inset: 15%; }
+.orbit__ring--3 { inset: 30%; }
+
+.orbit__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.orbit__line {
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+
+.orbit__pulse {
+  fill: var(--color-signal-bright);
+}
+
+.orbit__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  z-index: 1;
+}
+
+.orbit__core img {
+  width: 100%;
+  height: auto;
+}
+
+.orbit__nodes {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Earth horizon band (full-bleed) ──
+   Expects assets/images/earth-horizon.webp (see README for exact
+   spec). background-color is the fallback shown while that file is
+   missing/loading, so there is never a broken-image glyph. */
+.hero__earth {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  width: 100%;
+  height: clamp(14rem, 30vw, 26.25rem);
+  background-color: var(--color-void);
+  background-image: url('../../assets/images/earth-horizon.webp');
+  /* The source image is taller than this horizon band. Keeping its
+     full width and shifting the crop down makes the globe visible on
+     wide displays instead of showing only the dark sky. */
+  background-size: 100% auto;
+  background-position: center 68%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.hero__earth::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--color-void) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.hero__scroll {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: max-content;
+  inset: auto 0 var(--space-2);
+  margin: 0 auto;
+}
+
+.hero__scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  animation: scroll-bounce 2.4s var(--ease-out) infinite;
+}
+
+.hero__scroll-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero__scroll-label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+/* ── Responsive ── */
+@media (max-width: 959.98px) {
+  .hero {
+    height: calc(100svh - var(--header-height));
+    min-height: 30rem;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "orbit"
+      "features";
+    row-gap: var(--space-4);
+    padding-block: var(--space-4) var(--space-6);
+  }
+
+  .hero__orbit-wrap {
+    padding-top: 0;
+  }
+
+  .orbit {
+    width: min(75vw, 420px);
+  }
+
+  .hero__earth {
+    height: clamp(11rem, 48vw, 17rem);
+    background-size: cover;
+    background-position: center bottom;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero__grid {
+    display: block;
+    padding-block: 1rem;
+  }
+
+  .hero__content {
+    max-width: none;
+  }
+
+  .hero__badge {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero__title {
+    font-size: clamp(1.75rem, 7.4vw, 2.25rem);
+    line-height: 1.08;
+    margin-top: 0.75rem;
+  }
+
+  .hero__subtext {
+    max-width: 36ch;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .hero__content > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .hero__actions {
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 0;
+    justify-content: center;
+    gap: 0.45em;
+    min-width: 0;
+    padding: 0.7rem 0.55rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Keep the project capabilities visible directly below the CTA, but
+     present them as compact cards so they fit with the animated orbit. */
+  .hero__features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .hero__features .feature-badge {
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3.5rem;
+    padding: 0.5rem 0.625rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-surface-card) 88%, transparent);
+  }
+
+  .hero__features .feature-badge__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero__features .feature-badge__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero__features .feature-badge__label {
+    font-size: 0.725rem;
+  }
+
+  .hero__orbit-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.15rem;
+  }
+
+  .orbit {
+    width: min(75vw, 17rem);
+  }
+
+  .orbit__node-label {
+    display: none;
+  }
+
+  .orbit__node-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .orbit__node-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hero__earth {
+    height: clamp(10rem, 48vw, 14rem);
+  }
+
+  .hero__scroll {
+    bottom: 0.75rem;
+  }
+
+  .hero__scroll-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .hero__scroll-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hero__scroll-label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__glow,
+  .orbit__rings,
+  .hero__scroll-btn {
+    animation: none !important;
+  }
+}

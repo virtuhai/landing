@@ -1,0 +1,26 @@
+/**
+ * layout.css — Container and section-level structural rules.
+ * Component files (navigation.css, hero.css, ...) handle their own
+ * internal layout; this file only defines the shared scaffolding.
+ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+section[data-section] {
+  position: relative;
+}
+
+/* Reserve space for the sticky header so anchor-jump targets don't
+   land underneath it. Applies to any element with an id, since that
+   is what in-page links (`href="#about"`) actually scroll to — the
+   [data-scroll] attribute lives on the trigger <a>, not the target,
+   so it is not what needs the offset. Native `scroll-behavior: smooth`
+   (see reset.css) does the rest; no JS is needed for anchor scrolling. */
+[id] {
+  scroll-margin-top: var(--header-height);
+}

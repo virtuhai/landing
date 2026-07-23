@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-language="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Blocking, intentionally tiny: sets data-theme before first paint so
+       returning visitors (or light-mode systems) never see a flash of the
+       wrong theme. Mirrors CONFIG.theme.storageKey in js/config.js — keep
+       the 'virtuhai:theme' string in sync if that ever changes. -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('virtuhai:theme');
+        var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        var storedLanguage = localStorage.getItem('virtuhai:language');
+        var language = storedLanguage === 'uk' ? 'uk' : 'en';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-language', language);
+        document.documentElement.setAttribute('lang', language);
+      } catch (e) { /* localStorage unavailable — dark default from the html tag stands */ }
+    })();
+  </script>
+  <title>VIRTUHAI — AI Situational Awareness Platform</title>
+  <meta name="description" content="VIRTUHAI — платформа ситуативної обізнаності на основі штучного інтелекту: детекція дронів, погодна та екологічна аналітика, офіційні сповіщення в реальному часі.">
+  <link rel="canonical" href="https://virtuhai.com/">
+
+  <meta name="theme-color" content="#04060b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f1f1ef" media="(prefers-color-scheme: light)">
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/logo/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/logo/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Styles: split per component for parallel HTTP/2 loading and
+       independent on/off toggling (see README for the convention). -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/components/navigation.css">
+  <link rel="stylesheet" href="css/components/cards.css">
+  <link rel="stylesheet" href="css/components/hero.css">
+  <link rel="stylesheet" href="css/components/about.css">
+  <link rel="stylesheet" href="css/components/technology.css">
+  <link rel="stylesheet" href="css/components/products.css">
+  <link rel="stylesheet" href="css/components/roadmap.css">
+  <link rel="stylesheet" href="css/components/research.css">
+  <link rel="stylesheet" href="css/components/dashboard.css">
+  <link rel="stylesheet" href="css/components/investment.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <!-- Icon sprite inlined (not loaded from assets/icons/sprite.svg) so
+       <use href="#icon-x"> resolves as a same-document reference. This
+       is required for the site to render correctly over file:// (Chrome
+       blocks <use> against an *external* SVG file under file://), and
+       it also saves one HTTP request in production. sprite.svg on disk
+       stays the source of truth — copy its <symbol> contents back here
+       if you add/edit icons. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+
+  <!-- ============================================================
+       VIRTUHAI Icon Sprite
+       Single <symbol> per icon, referenced via <use href="#icon-name">.
+       All icons share a 24x24 viewBox and use currentColor so they
+       inherit color/theme from their parent element.
+       ============================================================ -->
+
+  <!-- UI: navigation / chrome -->
+  <symbol id="icon-menu" viewBox="0 0 24 24">
+    <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-close" viewBox="0 0 24 24">
+    <path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 2.5v2.6M12 18.9v2.6M4.6 4.6l1.85 1.85M17.55 17.55l1.85 1.85M2.5 12h2.6M18.9 12h2.6M4.6 19.4l1.85-1.85M17.55 6.45l1.85-1.85"
+          fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-moon" viewBox="0 0 24 24">
+    <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+    <path d="M4 12h15.5M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+    <path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-play" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M10 8.3l6 3.7-6 3.7z" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Feature badges -->
+  <symbol id="icon-shield-check" viewBox="0 0 24 24">
+    <path d="M12 3l7 3v5.2c0 4.6-3 8.2-7 9.8-4-1.6-7-5.2-7-9.8V6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M8.7 12.2l2.3 2.3 4.3-4.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-radar" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.55"/>
+    <circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.75"/>
+    <circle cx="12" cy="12" r="2.1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <symbol id="icon-shield-alert" viewBox="0 0 24 24">
+    <path d="M12 3l7 3v5.2c0 4.6-3 8.2-7 9.8-4-1.6-7-5.2-7-9.8V6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M9 9.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-lock" viewBox="0 0 24 24">
+    <rect x="5.5" y="11" width="13" height="9.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M8 11V7.6a4 4 0 0 1 8 0V11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="15.4" r="1.3" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Orbit / technology nodes -->
+  <symbol id="icon-drone" viewBox="0 0 24 24">
+    <circle cx="12" cy="13" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M9.8 11.3L6 7.5M14.2 11.3L18 7.5M9.8 14.7L6 18.5M14.2 14.7L18 18.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="5.2" cy="6.7" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="18.8" cy="6.7" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="5.2" cy="19.3" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="18.8" cy="19.3" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+
+  <symbol id="icon-cloud-bolt" viewBox="0 0 24 24">
+    <path d="M7.5 16.5a3.8 3.8 0 0 1-.6-7.55 4.8 4.8 0 0 1 9.3-1.5 3.6 3.6 0 0 1-.7 9.05z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M13 13.2l-2.6 3.4h2l-1.6 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-cloud-particles" viewBox="0 0 24 24">
+    <path d="M7.5 14.5a3.6 3.6 0 0 1-.5-7.15 4.6 4.6 0 0 1 8.9-1.4 3.4 3.4 0 0 1-.7 8.55z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="7.5" cy="18.2" r="0.9" fill="currentColor" stroke="none"/>
+    <circle cx="11.5" cy="18.9" r="0.9" fill="currentColor" stroke="none"/>
+    <circle cx="15.5" cy="18.2" r="0.9" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+    <path d="M12 3.5l9.3 16.2H2.7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M12 9.5v4.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="16.8" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <symbol id="icon-watch" viewBox="0 0 24 24">
+    <rect x="7.5" y="7.5" width="9" height="9" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M12 10v2.3l1.6 1.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 7.5V4.8h6V7.5M9 16.5v2.7h6v-2.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-home" viewBox="0 0 24 24">
+    <path d="M4.5 11.5L12 4l7.5 7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.5 10v9h11v-9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M10 19v-4.5h4V19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-car" viewBox="0 0 24 24">
+    <path d="M4 15.5l1.4-4.8A2 2 0 0 1 7.3 9.3h9.4a2 2 0 0 1 1.9 1.4l1.4 4.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="3.2" y="15.5" width="17.6" height="3.6" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="7.3" cy="19.3" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="16.7" cy="19.3" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+</svg>
+
+
+  <!-- ============================================================
+       HEADER — sticky navigation
+       ============================================================ -->
+  <header class="site-header" data-nav>
+    <div class="container site-header__inner">
+
+      <a href="#hero" class="brand" data-scroll aria-label="VIRTUHAI — на початок сторінки">
+        <picture>
+          <source srcset="assets/logo/virtuhai-logo.webp" type="image/webp">
+          <img src="assets/logo/virtuhai-logo.png" alt="VIRTUHAI" class="brand__logo" width="900" height="432">
+        </picture>
+      </a>
+
+      <nav class="nav-links" aria-label="Основна навігація">
+        <a href="#about" data-scroll>Vision</a>
+        <a href="#technology" data-scroll>Technology</a>
+        <a href="#products" data-scroll>Products</a>
+        <a href="#roadmap" data-scroll>Roadmap</a>
+        <a href="#dashboard" data-scroll>Dashboard</a>
+        <a href="#investment" data-scroll>Investment</a>
+      </nav>
+
+      <div class="site-header__actions">
+        <div class="language-toggle" data-language-toggle role="group" aria-label="Site language">
+          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="true">EN</button>
+          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="false">UK</button>
+        </div>
+        <div class="theme-toggle" data-theme-toggle role="group" aria-label="Тема оформлення">
+          <button type="button" class="theme-toggle__btn" data-theme-option="light" aria-pressed="false" aria-label="Світла тема">
+            <svg aria-hidden="true"><use href="#icon-sun"></use></svg>
+          </button>
+          <button type="button" class="theme-toggle__btn" data-theme-option="dark" aria-pressed="true" aria-label="Темна тема">
+            <svg aria-hidden="true"><use href="#icon-moon"></use></svg>
+          </button>
+        </div>
+
+        <a href="#investment" class="btn btn--solid-dark" data-scroll>
+          <span>Contact</span>
+          <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </a>
+
+        <button type="button" class="hamburger" data-menu-toggle aria-expanded="false" aria-controls="mobileMenu" aria-label="Відкрити меню">
+          <svg data-menu-icon-open aria-hidden="true"><use href="#icon-menu"></use></svg>
+          <svg data-menu-icon-close aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" data-mobile-menu hidden>
+      <nav class="mobile-menu__links" aria-label="Мобільна навігація">
+        <a href="#about" data-scroll>Vision</a>
+        <a href="#technology" data-scroll>Technology</a>
+        <a href="#products" data-scroll>Products</a>
+        <a href="#roadmap" data-scroll>Roadmap</a>
+        <a href="#dashboard" data-scroll>Dashboard</a>
+        <a href="#investment" data-scroll>Investment</a>
+      </nav>
+      <div class="mobile-menu__footer">
+        <div class="language-toggle" data-language-toggle role="group" aria-label="Site language">
+          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="true">EN</button>
+          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="false">UK</button>
+        </div>
+        <div class="theme-toggle" data-theme-toggle role="group" aria-label="Тема оформлення">
+          <button type="button" class="theme-toggle__btn" data-theme-option="light" aria-pressed="false" aria-label="Світла тема">
+            <svg aria-hidden="true"><use href="#icon-sun"></use></svg>
+          </button>
+          <button type="button" class="theme-toggle__btn" data-theme-option="dark" aria-pressed="true" aria-label="Темна тема">
+            <svg aria-hidden="true"><use href="#icon-moon"></use></svg>
+          </button>
+        </div>
+        <a href="#investment" class="btn btn--solid-dark btn--block" data-scroll>
+          <span>Contact</span>
+          <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="hero" data-section="hero" aria-label="VIRTUHAI — AI Situational Awareness Platform">
+
+      <div class="container">
+        <div class="hero__grid">
+
+          <div class="hero__content">
+            <p class="hero__badge eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              AI Situational Awareness Platform
+            </p>
+
+            <h1 class="hero__title">
+              Monitor threats and anticipate risks.</br>
+              <span class="accent">Act before it matters</span>
+            </h1>
+
+            <p class="hero__subtext">
+              The next generation AI platform for environmental awareness, air threats, and personal safety.
+            </p>
+
+            <div class="hero__actions">
+              <a href="#about" class="btn btn--outline-blue" data-scroll>
+                <svg aria-hidden="true"><use href="#icon-play"></use></svg>
+                <span>Explore Vision</span>
+              </a>
+              <a href="#roadmap" class="btn btn--outline-orange" data-scroll>
+                <span>Roadmap</span>
+                <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+              </a>
+            </div>
+          </div>
+
+          <ul class="feature-badges hero__features">
+            <li class="feature-badge">
+              <span class="feature-badge__icon" data-tone="blue"><svg aria-hidden="true"><use href="#icon-shield-check"></use></svg></span>
+              <span class="feature-badge__label">AI-Powered<br>Intelligence</span>
+            </li>
+            <li class="feature-badge">
+              <span class="feature-badge__icon" data-tone="blue"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
+              <span class="feature-badge__label">Real-Time<br>Monitoring</span>
+            </li>
+            <li class="feature-badge">
+              <span class="feature-badge__icon" data-tone="orange"><svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg></span>
+              <span class="feature-badge__label">Early<br>Warnings</span>
+            </li>
+            <li class="feature-badge">
+              <span class="feature-badge__icon" data-tone="neutral"><svg aria-hidden="true"><use href="#icon-lock"></use></svg></span>
+              <span class="feature-badge__label">Comprehensive <br>Safety</span>
+            </li>
+          </ul>
+
+          <div class="hero__orbit-wrap">
+            <div class="orbit" data-orbit>
+
+              <div class="orbit__glow" aria-hidden="true"></div>
+
+              <div class="orbit__rings" aria-hidden="true">
+                <span class="orbit__ring orbit__ring--1"></span>
+                <span class="orbit__ring orbit__ring--2"></span>
+                <span class="orbit__ring orbit__ring--3"></span>
+              </div>
+
+              <svg class="orbit__lines" viewBox="0 0 400 400" aria-hidden="true">
+                <line class="orbit__line" x1="200" y1="200" x2="59.1"  y2="101.3"/>
+                <line class="orbit__line" x1="200" y1="200" x2="340.9" y2="101.3"/>
+                <line class="orbit__line" x1="200" y1="200" x2="40.5"  y2="264.4"/>
+                <line class="orbit__line" x1="200" y1="200" x2="369.4" y2="229.9"/>
+                <line class="orbit__line" x1="200" y1="200" x2="146.8" y2="363.6"/>
+                <line class="orbit__line" x1="200" y1="200" x2="298.7" y2="340.9"/>
+                <line class="orbit__line" x1="200" y1="200" x2="221.0" y2="370.7"/>
+
+                <circle class="orbit__pulse orbit__pulse--1" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--2" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--3" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--4" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--5" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--6" cx="200" cy="200" r="3"/>
+                <circle class="orbit__pulse orbit__pulse--7" cx="200" cy="200" r="3"/>
+              </svg>
+
+              <div class="orbit__core" aria-hidden="true">
+                <picture>
+                  <source srcset="assets/logo/virtuhai-icon.webp" type="image/webp">
+                  <img src="assets/logo/virtuhai-icon.png" alt="" width="400" height="291">
+                </picture>
+              </div>
+
+              <ul class="orbit__nodes">
+                <li class="orbit__node" style="--node-x:14.8%; --node-y:25.3%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-drone"></use></svg></span>
+                  <span class="orbit__node-label">Drone detection<br>FPV • UAV</span>
+                </li>
+                <li class="orbit__node" style="--node-x:85.2%; --node-y:25.3%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
+                  <span class="orbit__node-label">Weather<br>Intelligence</span>
+                </li>
+                <li class="orbit__node" style="--node-x:10.1%; --node-y:66.1%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg></span>
+                  <span class="orbit__node-label">Air Quality<br>Monitoring</span>
+                </li>
+                <li class="orbit__node" data-tone="orange" style="--node-x:92.3%; --node-y:57.5%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-alert-triangle"></use></svg></span>
+                  <span class="orbit__node-label">Official<br>Alerts</span>
+                </li>
+                <li class="orbit__node" style="--node-x:36.7%; --node-y:90.9%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-watch"></use></svg></span>
+                  <span class="orbit__node-label">Wearable<br>Alerts</span>
+                </li>
+                <li class="orbit__node" style="--node-x:74.7%; --node-y:85.2%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
+                  <span class="orbit__node-label">Home<br>Protection</span>
+                </li>
+                <li class="orbit__node" style="--node-x:55.2%; --node-y:92.7%;">
+                  <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-car"></use></svg></span>
+                  <span class="orbit__node-label">Drive<br>Awareness</span>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hero__earth" aria-hidden="true"></div>
+
+      <div class="hero__scroll">
+        <a href="#about" class="hero__scroll-btn" data-scroll aria-label="Прокрутити до наступного блоку">
+          <svg aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </a>
+        <span class="hero__scroll-label">Scroll</span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         ABOUT PROJECT
+         ============================================================ -->
+    <section class="about" id="about" data-section="about" aria-labelledby="about-title">
+      <div class="container about__container">
+
+        <header class="about__intro" data-reveal>
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            The platform
+          </p>
+          <h2 id="about-title">Situational awareness,<br><span>made actionable.</span></h2>
+          <p>
+            VIRTUHAI turns fragmented environmental, airspace and public-safety signals into a single clear picture — so people and teams can make better decisions before a threat becomes an emergency.
+          </p>
+        </header>
+
+        <div class="about__principles" data-reveal>
+          <article class="about-card about-card--problem">
+            <div class="about-card__icon" aria-hidden="true">
+              <svg><use href="#icon-radar"></use></svg>
+            </div>
+            <p class="about-card__label">The problem</p>
+            <h3>Critical signals are scattered.</h3>
+            <p>Alerts, sensors, weather and airspace data arrive from separate systems — often too late and without context.</p>
+          </article>
+
+          <article class="about-card about-card--solution">
+            <div class="about-card__icon" aria-hidden="true">
+              <svg><use href="#icon-shield-check"></use></svg>
+            </div>
+            <p class="about-card__label">The solution</p>
+            <h3>One intelligent operating picture.</h3>
+            <p>VIRTUHAI fuses trusted data into relevant, timely and understandable guidance for every environment.</p>
+          </article>
+        </div>
+
+        <div class="about__flow" data-reveal aria-label="How VIRTUHAI converts signals into awareness">
+          <div class="about-flow__sources">
+            <p class="about-flow__label">Signals</p>
+            <div class="about-flow__source-list">
+              <span><svg aria-hidden="true"><use href="#icon-drone"></use></svg>Airspace</span>
+              <span><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg>Weather</span>
+              <span><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg>Environment</span>
+            </div>
+          </div>
+
+          <div class="about-flow__connector" aria-hidden="true"></div>
+
+          <div class="about-flow__core">
+            <div class="about-flow__visual" aria-hidden="true">
+              <span class="about-flow__visual-ring about-flow__visual-ring--outer"></span>
+              <span class="about-flow__visual-ring about-flow__visual-ring--inner"></span>
+              <span class="about-flow__visual-core"></span>
+              <span class="about-flow__visual-pulse about-flow__visual-pulse--one"></span>
+              <span class="about-flow__visual-pulse about-flow__visual-pulse--two"></span>
+              <span class="about-flow__visual-pulse about-flow__visual-pulse--three"></span>
+            </div>
+            <span>AI fusion</span>
+          </div>
+
+          <div class="about-flow__connector" aria-hidden="true"></div>
+
+          <div class="about-flow__outcome">
+            <svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg>
+            <div>
+              <p class="about-flow__label">Awareness</p>
+              <strong>Clear, early action</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TECHNOLOGY
+         ============================================================ -->
+    <section class="technology" id="technology" data-section="technology" aria-labelledby="technology-title">
+      <div class="container technology__container">
+
+        <header class="technology__heading" data-reveal>
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Technology
+          </p>
+          <h2 id="technology-title">Intelligence that sees<br><span>the whole environment.</span></h2>
+          <p>VIRTUHAI combines real-world signals with AI at the edge and in the cloud to create reliable awareness when every second counts.</p>
+        </header>
+
+        <div class="technology__capabilities" data-reveal>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
+            <h3>AI intelligence</h3>
+            <p>Patterns, priorities and context from complex data.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-shield-check"></use></svg></span>
+            <h3>Sensor fusion</h3>
+            <p>Trusted signals unified into one operating picture.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
+            <h3>Weather intelligence</h3>
+            <p>Conditions and hazards interpreted in real time.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-drone"></use></svg></span>
+            <h3>Drone detection</h3>
+            <p>Airspace events surfaced early and clearly.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg></span>
+            <h3>Environmental intelligence</h3>
+            <p>Air-quality and environmental risk awareness.</p>
+          </article>
+          <article class="technology-card technology-card--orange">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg></span>
+            <h3>Official alerts</h3>
+            <p>Authoritative warnings, made actionable.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
+            <h3>Cloud intelligence</h3>
+            <p>Scalable processing and continuous learning.</p>
+          </article>
+          <article class="technology-card">
+            <span class="technology-card__icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
+            <h3>Edge AI</h3>
+            <p>Fast local awareness, even with limited connectivity.</p>
+          </article>
+        </div>
+
+        <section class="technology__architecture" data-reveal aria-labelledby="technology-architecture-title">
+          <div class="technology-architecture__copy">
+            <p class="eyebrow">How it works</p>
+            <h3 id="technology-architecture-title">From raw signals to confident decisions.</h3>
+            <p>Each layer is independent, so the platform can grow from a single device to a resilient national-scale system.</p>
+          </div>
+
+          <ol class="technology-architecture__flow">
+            <li class="technology-stage">
+              <span class="technology-stage__index">01</span>
+              <span class="technology-stage__icon"><svg aria-hidden="true"><use href="#icon-drone"></use></svg></span>
+              <div>
+                <h4>Sense</h4>
+                <p>Sensors, weather, environment and alerts.</p>
+              </div>
+            </li>
+            <li class="technology-stage technology-stage--core">
+              <span class="technology-stage__index">02</span>
+              <span class="technology-stage__core" aria-hidden="true"><i></i></span>
+              <div>
+                <h4>Understand</h4>
+                <p>AI correlation, validation and prioritisation.</p>
+              </div>
+            </li>
+            <li class="technology-stage technology-stage--outcome">
+              <span class="technology-stage__index">03</span>
+              <span class="technology-stage__icon"><svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg></span>
+              <div>
+                <h4>Act</h4>
+                <p>Clear guidance for people, teams and systems.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PRODUCTS
+         ============================================================ -->
+    <section class="products" id="products" data-section="products" aria-labelledby="products-title">
+      <div class="container">
+        <header class="products__heading" data-reveal>
+          <div>
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Products
+            </p>
+            <h2 id="products-title">One intelligence platform.<br><span>Built for every context.</span></h2>
+          </div>
+          <p>VIRTUHAI products share the same awareness engine, adapting it to the places, people and systems that need it most.</p>
+        </header>
+
+        <div class="products__grid" data-reveal>
+          <article class="product-card product-card--home">
+            <div class="product-card__topline">
+              <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
+              <span class="product-card__status">Personal safety</span>
+            </div>
+            <h3>VIRTUHAI <span>HOME</span></h3>
+            <p>Environmental and local-risk awareness for the place you live.</p>
+            <ul aria-label="VIRTUHAI Home capabilities">
+              <li>Early warning</li>
+              <li>Home protection</li>
+            </ul>
+          </article>
+
+          <article class="product-card product-card--watch">
+            <div class="product-card__topline">
+              <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-watch"></use></svg></span>
+              <span class="product-card__status">Wearable</span>
+            </div>
+            <h3>VIRTUHAI <span>WATCH</span></h3>
+            <p>Relevant alerts delivered in a personal, immediate form factor.</p>
+            <ul aria-label="VIRTUHAI Watch capabilities">
+              <li>Personal alerts</li>
+              <li>Live status</li>
+            </ul>
+          </article>
+
+          <article class="product-card product-card--drive">
+            <div class="product-card__topline">
+              <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-car"></use></svg></span>
+              <span class="product-card__status">Mobility</span>
+            </div>
+            <h3>VIRTUHAI <span>DRIVE</span></h3>
+            <p>Situational awareness for safer decisions while moving.</p>
+            <ul aria-label="VIRTUHAI Drive capabilities">
+              <li>Route context</li>
+              <li>Hazard awareness</li>
+            </ul>
+          </article>
+
+          <article class="product-card product-card--defense">
+            <div class="product-card__topline">
+              <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg></span>
+              <span class="product-card__status">Mission critical</span>
+            </div>
+            <h3>VIRTUHAI <span>DEFENSE</span></h3>
+            <p>High-confidence awareness for teams, infrastructure and operations.</p>
+            <ul aria-label="VIRTUHAI Defense capabilities">
+              <li>Airspace alerts</li>
+              <li>Operational picture</li>
+            </ul>
+          </article>
+
+          <article class="product-card product-card--lab">
+            <div class="product-card__topline">
+              <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
+              <span class="product-card__status">Research</span>
+            </div>
+            <h3>VIRTUHAI <span>LAB</span></h3>
+            <p>A proving ground for sensors, models and emerging capabilities.</p>
+            <ul aria-label="VIRTUHAI Lab capabilities">
+              <li>Rapid prototyping</li>
+              <li>Field testing</li>
+            </ul>
+          </article>
+
+          <article class="product-card product-card--sdk">
+            <div class="product-card__topline">
+              <span class="product-card__icon product-card__icon--code" aria-hidden="true">&lt;/&gt;</span>
+              <span class="product-card__status">Developer platform</span>
+            </div>
+            <h3>VIRTUHAI <span>SDK</span></h3>
+            <p>Interfaces that bring VIRTUHAI intelligence into trusted products.</p>
+            <ul aria-label="VIRTUHAI SDK capabilities">
+              <li>API access</li>
+              <li>System integration</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ROADMAP
+         ============================================================ -->
+    <section class="roadmap" id="roadmap" data-section="roadmap" aria-labelledby="roadmap-title">
+      <div class="container">
+        <header class="roadmap__heading" data-reveal>
+          <div>
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Roadmap
+            </p>
+            <h2 id="roadmap-title">From research to a<br><span>global awareness platform.</span></h2>
+          </div>
+          <p>Our roadmap is built around deliberate validation: prove the intelligence, test it in the field, then scale the systems that earn trust.</p>
+        </header>
+
+        <div class="roadmap__year" data-reveal aria-label="Roadmap year 2026">
+          <span>2026</span>
+          <p>Building the foundation</p>
+        </div>
+
+        <ol class="roadmap__timeline" data-reveal>
+          <li class="roadmap-step roadmap-step--current">
+            <span class="roadmap-step__number">01</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Current focus</p>
+            <h3>Research</h3>
+            <p>Validate priority use cases, data sources and system requirements.</p>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-step__number">02</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Next</p>
+            <h3>Prototype</h3>
+            <p>Build and integrate the first end-to-end awareness experience.</p>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-step__number">03</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Validation</p>
+            <h3>Pilot</h3>
+            <p>Test the platform with real users, environments and feedback loops.</p>
+          </li>
+          <li class="roadmap-step roadmap-step--beacon">
+            <span class="roadmap-step__number">04</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Growth</p>
+            <h3>Investment</h3>
+            <p>Expand the team, accelerate engineering and prepare production readiness.</p>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-step__number">05</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Scale</p>
+            <h3>Manufacturing</h3>
+            <p>Deliver reliable hardware and operational deployment capability.</p>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-step__number">06</span>
+            <span class="roadmap-step__marker" aria-hidden="true"></span>
+            <p class="roadmap-step__status">Vision</p>
+            <h3>Global platform</h3>
+            <p>Connect trusted intelligence across people, places and systems.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RESEARCH
+         ============================================================ -->
+    <section class="research" id="research" data-section="research" aria-labelledby="research-title">
+      <div class="container">
+        <header class="research__heading" data-reveal>
+          <div>
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Research &amp; development
+            </p>
+            <h2 id="research-title">Building evidence before<br><span>building at scale.</span></h2>
+          </div>
+          <p>VIRTUHAI is in a focused research phase: validating the intelligence, integrations and hardware choices that will make each future product dependable.</p>
+        </header>
+
+        <section class="research__status" data-reveal aria-labelledby="research-status-title">
+          <div class="research-status__overview">
+            <p class="research-status__label">Development status</p>
+            <h3 id="research-status-title">Research phase <span>active</span></h3>
+            <p>Current work turns real-world needs into testable requirements and an integrated prototype architecture.</p>
+            <span class="research-status__signal"><i aria-hidden="true"></i> Systems research in progress</span>
+          </div>
+
+          <ol class="research-status__stages" aria-label="Development stages">
+            <li class="research-stage research-stage--active">
+              <span>01</span>
+              <div><strong>Research</strong><small>Active</small></div>
+            </li>
+            <li class="research-stage">
+              <span>02</span>
+              <div><strong>Prototype</strong><small>Planned</small></div>
+            </li>
+            <li class="research-stage">
+              <span>03</span>
+              <div><strong>Testing</strong><small>Planned</small></div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="research__domains" data-reveal>
+          <article class="research-domain">
+            <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
+            <div>
+              <p class="research-domain__label">01 / Hardware</p>
+              <h3>Resilient sensing</h3>
+              <p>Exploring dependable devices, power profiles and field-ready form factors.</p>
+            </div>
+          </article>
+          <article class="research-domain">
+            <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
+            <div>
+              <p class="research-domain__label">02 / AI</p>
+              <h3>Relevant intelligence</h3>
+              <p>Developing models that prioritise signals and explain their relevance.</p>
+            </div>
+          </article>
+          <article class="research-domain">
+            <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
+            <div>
+              <p class="research-domain__label">03 / Cloud</p>
+              <h3>Trusted infrastructure</h3>
+              <p>Designing scalable data flows, secure integrations and operational reliability.</p>
+            </div>
+          </article>
+          <article class="research-domain">
+            <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg></span>
+            <div>
+              <p class="research-domain__label">04 / Sensors</p>
+              <h3>Signal quality</h3>
+              <p>Assessing sensor inputs that improve awareness in changing environments.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LIVE DASHBOARD
+         ============================================================ -->
+    <section class="dashboard" id="dashboard" data-section="dashboard" aria-labelledby="dashboard-title" data-dashboard>
+      <div class="container">
+        <header class="dashboard__heading" data-reveal>
+          <div>
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Live dashboard
+            </p>
+            <h2 id="dashboard-title">Environmental awareness,<br><span>live from the field.</span></h2>
+          </div>
+          <div class="dashboard__controls">
+            <p><strong>Kyiv, Ukraine</strong><span data-dashboard-updated>Connecting to live sources…</span></p>
+            <button class="dashboard__refresh" type="button" data-dashboard-refresh>
+              Refresh <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="dashboard__grid" data-reveal aria-live="polite">
+          <article class="dashboard-card dashboard-card--weather">
+            <p class="dashboard-card__label">Weather</p>
+            <div class="dashboard-card__value"><span data-dashboard-temperature>--</span><small>°C</small></div>
+            <p data-dashboard-weather>Loading current conditions…</p>
+          </article>
+
+          <article class="dashboard-card">
+            <p class="dashboard-card__label">Air quality</p>
+            <div class="dashboard-card__value"><span data-dashboard-aqi>--</span><small>AQI</small></div>
+            <p data-dashboard-pm>PM2.5: -- μg/m³</p>
+          </article>
+
+          <article class="dashboard-card">
+            <p class="dashboard-card__label">UV index</p>
+            <div class="dashboard-card__value"><span data-dashboard-uv>--</span><small>/ 11+</small></div>
+            <p data-dashboard-uv-label>Loading daily outlook…</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--lightning">
+            <p class="dashboard-card__label">Lightning risk</p>
+            <div class="dashboard-card__signal" aria-hidden="true"><i></i><i></i><i></i></div>
+            <p data-dashboard-lightning>Assessing weather conditions…</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--alert">
+            <p class="dashboard-card__label">Official alerts</p>
+            <h3>Public-feed integration pending</h3>
+            <p>Official alert sources will appear here once a verified regional feed is connected.</p>
+            <span class="dashboard-card__state">Not connected</span>
+          </article>
+
+          <article class="dashboard-card dashboard-card--status">
+            <p class="dashboard-card__label">System status</p>
+            <h3 data-dashboard-status>Connecting</h3>
+            <p>Weather, air quality and UV data are fetched directly in your browser.</p>
+            <span class="dashboard-card__state dashboard-card__state--live"><i aria-hidden="true"></i> Live sources</span>
+          </article>
+        </div>
+
+        <p class="dashboard__source" data-reveal>Live environmental data powered by Open‑Meteo. Information is for demonstration and situational awareness only.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         INVESTMENT
+         ============================================================ -->
+    <section class="investment" id="investment" data-section="investment" aria-labelledby="investment-title">
+      <div class="container investment__container">
+        <header class="investment__heading" data-reveal>
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Investment
+          </p>
+          <h2 id="investment-title">Help build the intelligence<br><span>people can rely on.</span></h2>
+          <p>VIRTUHAI is building the foundation for a new class of situational awareness: understandable, trusted and ready to grow across critical use cases.</p>
+        </header>
+
+        <div class="investment__layout">
+          <section class="investment__case" data-reveal aria-labelledby="investment-case-title">
+            <p class="investment__label">Why investment matters now</p>
+            <h3 id="investment-case-title">Turn validated research into real-world capability.</h3>
+            <p>Investment lets the team move from research to an integrated prototype, prove the platform in pilot environments and establish the technical base for responsible scale.</p>
+
+            <ul class="investment__priorities">
+              <li><span>01</span><strong>Prototype development</strong><p>Fuse sensors, data sources and the core awareness experience.</p></li>
+              <li><span>02</span><strong>Field validation</strong><p>Test assumptions with partners, users and real conditions.</p></li>
+              <li><span>03</span><strong>Foundational team</strong><p>Build focused capability across AI, hardware and cloud engineering.</p></li>
+            </ul>
+          </section>
+
+          <aside class="investment__stage" data-reveal aria-labelledby="investment-stage-title">
+            <p class="investment__label">Current stage</p>
+            <h3 id="investment-stage-title">Research phase <span>active</span></h3>
+            <p>Requirements, data sources and platform architecture are being validated now.</p>
+
+            <ol class="investment__path" aria-label="Investment milestone path">
+              <li class="is-active"><span>Research</span><i aria-hidden="true"></i></li>
+              <li><span>Prototype</span><i aria-hidden="true"></i></li>
+              <li><span>Pilot</span><i aria-hidden="true"></i></li>
+              <li><span>Scale</span><i aria-hidden="true"></i></li>
+            </ol>
+
+            <a class="investment__contact" href="mailto:hello@virtuhai.com">
+              <span>Start a conversation</span>
+              <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+            <p class="investment__email">hello@virtuhai.com</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer" id="contact">
+    <div class="container site-footer__container">
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <a href="#hero" data-scroll aria-label="VIRTUHAI — back to top">
+            <picture>
+              <source srcset="assets/logo/virtuhai-logo.webp" type="image/webp">
+              <img src="assets/logo/virtuhai-logo.png" alt="VIRTUHAI" class="site-footer__logo" width="900" height="432">
+            </picture>
+          </a>
+          <p>AI situational awareness for a safer, more prepared world.</p>
+        </div>
+
+        <nav class="site-footer__nav" aria-label="Footer navigation">
+          <p class="site-footer__label">Explore</p>
+          <a href="#about" data-scroll>Vision</a>
+          <a href="#technology" data-scroll>Technology</a>
+          <a href="#products" data-scroll>Products</a>
+          <a href="#roadmap" data-scroll>Roadmap</a>
+        </nav>
+
+        <div class="site-footer__contact">
+          <p class="site-footer__label">Contact</p>
+          <a href="mailto:hello@virtuhai.com">hello@virtuhai.com</a>
+          <a href="https://github.com/virtuhai" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          <p class="site-footer__social">More channels coming soon.</p>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p>© 2026 VIRTUHAI. All rights reserved.</p>
+        <a href="#hero" data-scroll>Back to top <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

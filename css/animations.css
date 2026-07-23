@@ -1,0 +1,170 @@
+/**
+ * animations.css — All @keyframes definitions and the motion utility
+ * classes that use them. Components reference these by name rather
+ * than declaring their own keyframes.
+ */
+
+/* ── Generic ── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+[data-reveal] {
+  opacity: 0;
+}
+
+[data-reveal].is-revealed {
+  animation: fade-in-up var(--dur-med) var(--ease-out) forwards;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.75; }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* About Project — signals travelling through the fusion flow. */
+@keyframes fusion-signal-flow {
+  0% { transform: translate(-120%, -50%); opacity: 0; }
+  15%, 70% { opacity: 1; }
+  100% { transform: translate(220%, -50%); opacity: 0; }
+}
+
+@keyframes fusion-signal-flow-vertical {
+  0% { transform: translate(-50%, -120%); opacity: 0; }
+  15%, 70% { opacity: 1; }
+  100% { transform: translate(-50%, 220%); opacity: 0; }
+}
+
+@keyframes fusion-scan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fusion-pulse {
+  0%, 100% { opacity: 0.3; transform: rotate(var(--pulse-angle)) translateX(2rem) scale(0.7); }
+  50% { opacity: 1; transform: rotate(var(--pulse-angle)) translateX(2.6rem) scale(1); }
+}
+
+@keyframes technology-core-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-signal-bright) 0%, transparent); }
+  50% { box-shadow: 0 0 0 0.65rem color-mix(in srgb, var(--color-signal-bright) 13%, transparent); }
+}
+
+@keyframes research-signal-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes dashboard-signal {
+  0%, 100% { opacity: 0.35; transform: scaleY(0.75); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ── Orbit diagram: slow ambient ring rotation ── */
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Orbit diagram: signal-dot travel, one keyframe per node.
+   Coordinates match the --node-x/--node-y values set inline on
+   each .orbit__node in index.html (viewBox is 0 0 400 400,
+   center at 200,200). Keep both in sync if nodes are repositioned. */
+@keyframes orbit-pulse-1 { /* → Drone Detection */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 59.1; cy: 101.3; opacity: 0; }
+}
+
+@keyframes orbit-pulse-2 { /* → Weather Intelligence */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 340.9; cy: 101.3; opacity: 0; }
+}
+
+@keyframes orbit-pulse-3 { /* → Air Quality Monitoring */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 40.5; cy: 264.4; opacity: 0; }
+}
+
+@keyframes orbit-pulse-4 { /* → Official Alerts */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 369.4; cy: 229.9; opacity: 0; }
+}
+
+@keyframes orbit-pulse-5 { /* → Wearable Alerts */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 146.8; cy: 363.6; opacity: 0; }
+}
+
+@keyframes orbit-pulse-6 { /* → Home Protection */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 298.7; cy: 340.9; opacity: 0; }
+}
+
+@keyframes orbit-pulse-7 { /* → Drive Awareness */
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 221.0; cy: 370.7; opacity: 0; }
+}
+
+.orbit__pulse--1 { animation: orbit-pulse-1 var(--dur-travel) var(--ease-out) infinite; animation-delay: 0ms; }
+.orbit__pulse--2 { animation: orbit-pulse-2 var(--dur-travel) var(--ease-out) infinite; animation-delay: 370ms; }
+.orbit__pulse--3 { animation: orbit-pulse-3 var(--dur-travel) var(--ease-out) infinite; animation-delay: 740ms; }
+.orbit__pulse--4 { animation: orbit-pulse-4 var(--dur-travel) var(--ease-out) infinite; animation-delay: 1110ms; }
+.orbit__pulse--5 { animation: orbit-pulse-5 var(--dur-travel) var(--ease-out) infinite; animation-delay: 1480ms; }
+.orbit__pulse--6 { animation: orbit-pulse-6 var(--dur-travel) var(--ease-out) infinite; animation-delay: 1850ms; }
+.orbit__pulse--7 { animation: orbit-pulse-7 var(--dur-travel) var(--ease-out) infinite; animation-delay: 2220ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .orbit__pulse--1,
+  .orbit__pulse--2,
+  .orbit__pulse--3,
+  .orbit__pulse--4,
+  .orbit__pulse--5,
+  .orbit__pulse--6,
+  .orbit__pulse--7 {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .about-flow__connector::after,
+  .about-flow__visual-ring--outer,
+  .about-flow__visual-pulse {
+    animation: none !important;
+  }
+
+  .technology-stage__core {
+    animation: none !important;
+  }
+
+  .research-status__signal i {
+    animation: none !important;
+  }
+
+  .dashboard-card__signal i {
+    animation: none !important;
+  }
+}
