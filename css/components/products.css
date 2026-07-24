@@ -43,7 +43,14 @@
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   background: var(--color-surface-card);
+  color: inherit;
+  cursor: pointer;
   transition: transform var(--dur-med) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.product-card:focus-visible {
+  outline: 2px solid var(--product-accent);
+  outline-offset: 3px;
 }
 
 .product-card::before {
@@ -81,6 +88,17 @@
 .product-card ul {
   position: relative;
   z-index: 1;
+}
+
+.product-card__hint {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-3);
+  color: var(--product-accent);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
 }
 
 .product-card__topline {
@@ -151,6 +169,58 @@
   color: var(--color-mist);
   font-size: var(--fs-label);
 }
+
+.product-modal {
+  width: min(96vw, 76rem);
+  max-width: 960px;
+  max-height: 99vh;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.product-modal::backdrop {
+  background: rgb(0 0 0 / 82%);
+  backdrop-filter: blur(0.25rem);
+}
+
+.product-modal__content { overflow: auto; max-height: 99vh; }
+
+.product-modal__bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.product-modal__bar p { font-size: var(--fs-small); font-weight: 700; letter-spacing: var(--tracking-wide); }
+
+.product-modal__close {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.product-modal__close:hover { border-color: var(--color-beacon); color: var(--color-beacon); }
+
+.product-modal img { display: block; width: 100%; height: auto; }
 
 @media (max-width: 959.98px) {
   .products__grid {

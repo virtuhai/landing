@@ -80,49 +80,49 @@
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 59.1; cy: 101.3; opacity: 0; }
+  100% { cx: 200; cy: 28; opacity: 0; }
 }
 
 @keyframes orbit-pulse-2 { /* → Weather Intelligence */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 340.9; cy: 101.3; opacity: 0; }
+  100% { cx: 68; cy: 100; opacity: 0; }
 }
 
 @keyframes orbit-pulse-3 { /* → Air Quality Monitoring */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 40.5; cy: 264.4; opacity: 0; }
+  100% { cx: 332; cy: 100; opacity: 0; }
 }
 
 @keyframes orbit-pulse-4 { /* → Official Alerts */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 369.4; cy: 229.9; opacity: 0; }
+  100% { cx: 36; cy: 244; opacity: 0; }
 }
 
 @keyframes orbit-pulse-5 { /* → Wearable Alerts */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 146.8; cy: 363.6; opacity: 0; }
+  100% { cx: 364; cy: 244; opacity: 0; }
 }
 
 @keyframes orbit-pulse-6 { /* → Home Protection */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 298.7; cy: 340.9; opacity: 0; }
+  100% { cx: 112; cy: 356; opacity: 0; }
 }
 
 @keyframes orbit-pulse-7 { /* → Drive Awareness */
   0%   { cx: 200; cy: 200; opacity: 0; }
   8%   { opacity: 1; }
   90%  { opacity: 1; }
-  100% { cx: 221.0; cy: 370.7; opacity: 0; }
+  100% { cx: 288; cy: 356; opacity: 0; }
 }
 
 .orbit__pulse--1 { animation: orbit-pulse-1 var(--dur-travel) var(--ease-out) infinite; animation-delay: 0ms; }

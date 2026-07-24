@@ -8,7 +8,8 @@ import { initThemeSwitcher } from './modules/theme-switcher.js';
 import { initNavigation } from './modules/navigation.js';
 import { initReveal } from './modules/observer.js';
 import { initDashboard } from './modules/dashboard.js';
-import { initI18n } from './modules/i18n.js';
+import { initI18n } from './modules/i18n.js?v=20260724-2';
+import { initProductModal } from './modules/product-modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initThemeSwitcher();
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initDashboard();
   initI18n();
+  initProductModal();
 });

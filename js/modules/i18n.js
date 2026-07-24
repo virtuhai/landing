@@ -4,11 +4,13 @@
  * replaces matching text nodes, so components remain independent.
  */
 
-import { CONFIG } from '../config.js';
+import { CONFIG } from '../config.js?v=20260724-2';
 
 const originalTexts = new Map();
 const originalTitle = document.title;
-let activeLanguage = CONFIG.locale.default;
+// index.html is authored in English. Keep this separate from the preferred
+// default locale so the Ukrainian dictionary is loaded on a first visit.
+let activeLanguage = 'en';
 
 function updateToggleState(language) {
   document.querySelectorAll('[data-language-option]').forEach((button) => {
@@ -75,7 +77,9 @@ async function setLanguage(language) {
 /** Initialise language controls and restore the visitor's saved choice. */
 export function initI18n() {
   const storedLanguage = localStorage.getItem(CONFIG.locale.storageKey);
-  const initialLanguage = storedLanguage === 'uk' ? 'uk' : CONFIG.locale.default;
+  const initialLanguage = ['en', 'uk'].includes(storedLanguage)
+    ? storedLanguage
+    : CONFIG.locale.default;
 
   document.querySelectorAll('[data-language-option]').forEach((button) => {
     button.addEventListener('click', () => setLanguage(button.dataset.languageOption));

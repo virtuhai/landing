@@ -15,7 +15,7 @@
         var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 
         var storedLanguage = localStorage.getItem('virtuhai:language');
-        var language = storedLanguage === 'uk' ? 'uk' : 'en';
+        var language = storedLanguage === 'en' ? 'en' : 'uk';
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.setAttribute('data-language', language);
         document.documentElement.setAttribute('lang', language);
@@ -202,8 +202,8 @@
 
       <div class="site-header__actions">
         <div class="language-toggle" data-language-toggle role="group" aria-label="Site language">
-          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="true">EN</button>
-          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="false">UK</button>
+          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="false">EN</button>
+          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="true">UK</button>
         </div>
         <div class="theme-toggle" data-theme-toggle role="group" aria-label="Тема оформлення">
           <button type="button" class="theme-toggle__btn" data-theme-option="light" aria-pressed="false" aria-label="Світла тема">
@@ -238,8 +238,8 @@
       </nav>
       <div class="mobile-menu__footer">
         <div class="language-toggle" data-language-toggle role="group" aria-label="Site language">
-          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="true">EN</button>
-          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="false">UK</button>
+          <button type="button" class="language-toggle__btn" data-language-option="en" aria-pressed="false">EN</button>
+          <button type="button" class="language-toggle__btn" data-language-option="uk" aria-pressed="true">UK</button>
         </div>
         <div class="theme-toggle" data-theme-toggle role="group" aria-label="Тема оформлення">
           <button type="button" class="theme-toggle__btn" data-theme-option="light" aria-pressed="false" aria-label="Світла тема">
@@ -325,13 +325,13 @@
               </div>
 
               <svg class="orbit__lines" viewBox="0 0 400 400" aria-hidden="true">
-                <line class="orbit__line" x1="200" y1="200" x2="59.1"  y2="101.3"/>
-                <line class="orbit__line" x1="200" y1="200" x2="340.9" y2="101.3"/>
-                <line class="orbit__line" x1="200" y1="200" x2="40.5"  y2="264.4"/>
-                <line class="orbit__line" x1="200" y1="200" x2="369.4" y2="229.9"/>
-                <line class="orbit__line" x1="200" y1="200" x2="146.8" y2="363.6"/>
-                <line class="orbit__line" x1="200" y1="200" x2="298.7" y2="340.9"/>
-                <line class="orbit__line" x1="200" y1="200" x2="221.0" y2="370.7"/>
+                <line class="orbit__line" x1="200" y1="200" x2="200" y2="28"/>
+                <line class="orbit__line" x1="200" y1="200" x2="68"  y2="100"/>
+                <line class="orbit__line" x1="200" y1="200" x2="332" y2="100"/>
+                <line class="orbit__line" x1="200" y1="200" x2="36"  y2="244"/>
+                <line class="orbit__line" x1="200" y1="200" x2="364" y2="244"/>
+                <line class="orbit__line" x1="200" y1="200" x2="112" y2="356"/>
+                <line class="orbit__line" x1="200" y1="200" x2="288" y2="356"/>
 
                 <circle class="orbit__pulse orbit__pulse--1" cx="200" cy="200" r="3"/>
                 <circle class="orbit__pulse orbit__pulse--2" cx="200" cy="200" r="3"/>
@@ -350,31 +350,31 @@
               </div>
 
               <ul class="orbit__nodes">
-                <li class="orbit__node" style="--node-x:14.8%; --node-y:25.3%;">
+                <li class="orbit__node orbit__node--top" style="--node-x:50%; --node-y:7%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-drone"></use></svg></span>
                   <span class="orbit__node-label">Drone detection<br>FPV • UAV</span>
                 </li>
-                <li class="orbit__node" style="--node-x:85.2%; --node-y:25.3%;">
+                <li class="orbit__node" style="--node-x:17%; --node-y:25%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
                   <span class="orbit__node-label">Weather<br>Intelligence</span>
                 </li>
-                <li class="orbit__node" style="--node-x:10.1%; --node-y:66.1%;">
+                <li class="orbit__node" style="--node-x:83%; --node-y:25%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg></span>
                   <span class="orbit__node-label">Air Quality<br>Monitoring</span>
                 </li>
-                <li class="orbit__node" data-tone="orange" style="--node-x:92.3%; --node-y:57.5%;">
+                <li class="orbit__node" data-tone="orange" style="--node-x:9%; --node-y:61%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-alert-triangle"></use></svg></span>
                   <span class="orbit__node-label">Official<br>Alerts</span>
                 </li>
-                <li class="orbit__node" style="--node-x:36.7%; --node-y:90.9%;">
+                <li class="orbit__node" style="--node-x:91%; --node-y:61%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-watch"></use></svg></span>
                   <span class="orbit__node-label">Wearable<br>Alerts</span>
                 </li>
-                <li class="orbit__node" style="--node-x:74.7%; --node-y:85.2%;">
+                <li class="orbit__node" style="--node-x:28%; --node-y:89%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
                   <span class="orbit__node-label">Home<br>Protection</span>
                 </li>
-                <li class="orbit__node" style="--node-x:55.2%; --node-y:92.7%;">
+                <li class="orbit__node" style="--node-x:72%; --node-y:89%;">
                   <span class="orbit__node-icon"><svg aria-hidden="true"><use href="#icon-car"></use></svg></span>
                   <span class="orbit__node-label">Drive<br>Awareness</span>
                 </li>
@@ -585,7 +585,7 @@
         </header>
 
         <div class="products__grid" data-reveal>
-          <article class="product-card product-card--home">
+          <article class="product-card product-card--home" data-product-card data-product-image="assets/images/VIRTUHAI_HOME.jpg" data-product-title="VIRTUHAI HOME" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI HOME infographic">
             <div class="product-card__topline">
               <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
               <span class="product-card__status">Personal safety</span>
@@ -596,9 +596,10 @@
               <li>Early warning</li>
               <li>Home protection</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
 
-          <article class="product-card product-card--watch">
+          <article class="product-card product-card--watch" data-product-card data-product-image="assets/images/VIRTUHAI_WATCH.jpg" data-product-title="VIRTUHAI WATCH" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI WATCH infographic">
             <div class="product-card__topline">
               <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-watch"></use></svg></span>
               <span class="product-card__status">Wearable</span>
@@ -609,9 +610,10 @@
               <li>Personal alerts</li>
               <li>Live status</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
 
-          <article class="product-card product-card--drive">
+          <article class="product-card product-card--drive" data-product-card data-product-image="assets/images/VIRTUHAI_DRIVE.jpg" data-product-title="VIRTUHAI DRIVE" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI DRIVE infographic">
             <div class="product-card__topline">
               <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-car"></use></svg></span>
               <span class="product-card__status">Mobility</span>
@@ -622,9 +624,10 @@
               <li>Route context</li>
               <li>Hazard awareness</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
 
-          <article class="product-card product-card--defense">
+          <article class="product-card product-card--defense" data-product-card data-product-image="assets/images/VIRTUHAI_DEFENSE.jpg" data-product-title="VIRTUHAI DEFENSE" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI DEFENSE infographic">
             <div class="product-card__topline">
               <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-shield-alert"></use></svg></span>
               <span class="product-card__status">Mission critical</span>
@@ -635,9 +638,10 @@
               <li>Airspace alerts</li>
               <li>Operational picture</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
 
-          <article class="product-card product-card--lab">
+          <article class="product-card product-card--lab" data-product-card data-product-image="assets/images/VIRTUHAI_LAB.jpg" data-product-title="VIRTUHAI LAB" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI LAB infographic">
             <div class="product-card__topline">
               <span class="product-card__icon"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
               <span class="product-card__status">Research</span>
@@ -648,9 +652,10 @@
               <li>Rapid prototyping</li>
               <li>Field testing</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
 
-          <article class="product-card product-card--sdk">
+          <article class="product-card product-card--sdk" data-product-card data-product-image="assets/images/VIRTUHAI_SDK.jpg" data-product-title="VIRTUHAI SDK" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open VIRTUHAI SDK infographic">
             <div class="product-card__topline">
               <span class="product-card__icon product-card__icon--code" aria-hidden="true">&lt;/&gt;</span>
               <span class="product-card__status">Developer platform</span>
@@ -661,6 +666,7 @@
               <li>API access</li>
               <li>System integration</li>
             </ul>
+            <span class="product-card__hint" aria-hidden="true">View infographic ↗</span>
           </article>
         </div>
       </div>
@@ -747,29 +753,29 @@
             </p>
             <h2 id="research-title">Building evidence before<br><span>building at scale.</span></h2>
           </div>
-          <p>VIRTUHAI is in a focused research phase: validating the intelligence, integrations and hardware choices that will make each future product dependable.</p>
+          <p>Over the next six months, we plan to turn the concept into a tested software prototype: a secure data platform, priority API integrations and a practical alerting experience.</p>
         </header>
 
         <section class="research__status" data-reveal aria-labelledby="research-status-title">
           <div class="research-status__overview">
             <p class="research-status__label">Development status</p>
-            <h3 id="research-status-title">Research phase <span>active</span></h3>
-            <p>Current work turns real-world needs into testable requirements and an integrated prototype architecture.</p>
-            <span class="research-status__signal"><i aria-hidden="true"></i> Systems research in progress</span>
+            <h3 id="research-status-title">Six-month delivery <span>plan</span></h3>
+            <p>The planned programme covers solution design, software development, API setup, integration testing and research with future users and partners.</p>
+            <span class="research-status__signal"><i aria-hidden="true"></i> Target budget: ₴3–4 million</span>
           </div>
 
           <ol class="research-status__stages" aria-label="Development stages">
             <li class="research-stage research-stage--active">
               <span>01</span>
-              <div><strong>Research</strong><small>Active</small></div>
+              <div><strong>Architecture</strong><small>Months 1–2</small></div>
             </li>
             <li class="research-stage">
               <span>02</span>
-              <div><strong>Prototype</strong><small>Planned</small></div>
+              <div><strong>Integrated prototype</strong><small>Months 2–4</small></div>
             </li>
             <li class="research-stage">
               <span>03</span>
-              <div><strong>Testing</strong><small>Planned</small></div>
+              <div><strong>Testing &amp; pilot readiness</strong><small>Months 5–6</small></div>
             </li>
           </ol>
         </section>
@@ -778,36 +784,49 @@
           <article class="research-domain">
             <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-home"></use></svg></span>
             <div>
-              <p class="research-domain__label">01 / Hardware</p>
-              <h3>Resilient sensing</h3>
-              <p>Exploring dependable devices, power profiles and field-ready form factors.</p>
+              <p class="research-domain__label">01 / Infrastructure</p>
+              <h3>Secure platform foundation</h3>
+              <p>Annual server capacity, secure data storage, monitoring and deployment pipelines for a dependable prototype environment.</p>
             </div>
           </article>
           <article class="research-domain">
             <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-radar"></use></svg></span>
             <div>
-              <p class="research-domain__label">02 / AI</p>
-              <h3>Relevant intelligence</h3>
-              <p>Developing models that prioritise signals and explain their relevance.</p>
+              <p class="research-domain__label">02 / Data integrations</p>
+              <h3>Signals in one operational view</h3>
+              <p>Planned connections to OpenSky Network, OpenStreetMap with Overpass API, GDELT and NASA FIRMS for airspace, map, public-information and fire signals.</p>
             </div>
           </article>
           <article class="research-domain">
             <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-cloud-bolt"></use></svg></span>
             <div>
-              <p class="research-domain__label">03 / Cloud</p>
-              <h3>Trusted infrastructure</h3>
-              <p>Designing scalable data flows, secure integrations and operational reliability.</p>
+              <p class="research-domain__label">03 / Software &amp; APIs</p>
+              <h3>Reliable alerting workflows</h3>
+              <p>Engineering, configuring and testing the services that turn heterogeneous data into clear, traceable and relevant alerts.</p>
             </div>
           </article>
           <article class="research-domain">
             <span class="research-domain__icon"><svg aria-hidden="true"><use href="#icon-cloud-particles"></use></svg></span>
             <div>
-              <p class="research-domain__label">04 / Sensors</p>
-              <h3>Signal quality</h3>
-              <p>Assessing sensor inputs that improve awareness in changing environments.</p>
+              <p class="research-domain__label">04 / Research team</p>
+              <h3>Validation with specialists</h3>
+              <p>Research, domain review and compensation for specialists who validate the product, data quality and practical scenarios.</p>
             </div>
           </article>
         </div>
+
+        <section class="research__budget" data-reveal aria-labelledby="research-budget-title">
+          <div>
+            <p class="research-status__label">Funding use</p>
+            <h3 id="research-budget-title">What ₴3–4 million enables in six months</h3>
+          </div>
+          <ul>
+            <li><strong>Server for one year</strong><span>Production-like compute, storage, monitoring and security baseline.</span></li>
+            <li><strong>Development &amp; integration</strong><span>Platform, interface, data pipelines and API adapters.</span></li>
+            <li><strong>Setup &amp; testing</strong><span>Quality assurance, integration tests, reliability checks and pilot preparation.</span></li>
+            <li><strong>Research &amp; specialists</strong><span>Product research, domain expertise and team compensation.</span></li>
+          </ul>
+        </section>
       </div>
     </section>
 
@@ -887,26 +906,37 @@
             Investment
           </p>
           <h2 id="investment-title">Help build the intelligence<br><span>people can rely on.</span></h2>
-          <p>VIRTUHAI is building the foundation for a new class of situational awareness: understandable, trusted and ready to grow across critical use cases.</p>
+          <p>We are seeking grant and investment support to deliver a validated prototype in six months and create a strong base for pilots, partnerships and responsible scale.</p>
         </header>
 
         <div class="investment__layout">
           <section class="investment__case" data-reveal aria-labelledby="investment-case-title">
             <p class="investment__label">Why investment matters now</p>
-            <h3 id="investment-case-title">Turn validated research into real-world capability.</h3>
-            <p>Investment lets the team move from research to an integrated prototype, prove the platform in pilot environments and establish the technical base for responsible scale.</p>
+            <h3 id="investment-case-title">Turn a clear technical plan into a tested product.</h3>
+            <p>A ₴3–4 million programme funds the first integrated version: annual server infrastructure, development, API integration, testing, research and the specialists responsible for delivery.</p>
 
             <ul class="investment__priorities">
-              <li><span>01</span><strong>Prototype development</strong><p>Fuse sensors, data sources and the core awareness experience.</p></li>
-              <li><span>02</span><strong>Field validation</strong><p>Test assumptions with partners, users and real conditions.</p></li>
-              <li><span>03</span><strong>Foundational team</strong><p>Build focused capability across AI, hardware and cloud engineering.</p></li>
+              <li><span>01</span><strong>Integrated prototype</strong><p>One operational view for priority data sources and alerts.</p></li>
+              <li><span>02</span><strong>Testable reliability</strong><p>Secure deployment, observability and verification before pilots.</p></li>
+              <li><span>03</span><strong>Experienced delivery</strong><p>A multidisciplinary team ready to build, validate and communicate the result.</p></li>
+            </ul>
+          </section>
+
+          <section class="investment__team" data-reveal aria-labelledby="investment-team-title">
+            <p class="investment__label">Team &amp; track record</p>
+            <h3 id="investment-team-title">A team that combines delivery, business and public communication.</h3>
+            <p>VIRTUHAI brings together SEO and full-stack specialists with 15+ years of experience, entrepreneurs, a journalist and volunteers. The team has already launched and operated information and e-commerce products for Ukrainian audiences.</p>
+            <ul class="investment__projects">
+              <li><a href="https://nvip.com.ua/" target="_blank" rel="noopener noreferrer">nvip.com.ua</a><span>Local information portal with news, announcements and practical information about Novovolynsk, Ukraine.</span></li>
+              <li><span><strong>newmarket.in.ua · rybach.in.ua · mobich.in.ua</strong></span><span>Owned e-commerce projects that demonstrate hands-on product, marketing and operational experience.</span></li>
+              <li><a href="https://ccc.info/" target="_blank" rel="noopener noreferrer">ccc.info</a><span>News from Ukraine for international audiences and global coverage of Ukraine translated into Ukrainian.</span></li>
             </ul>
           </section>
 
           <aside class="investment__stage" data-reveal aria-labelledby="investment-stage-title">
             <p class="investment__label">Current stage</p>
             <h3 id="investment-stage-title">Research phase <span>active</span></h3>
-            <p>Requirements, data sources and platform architecture are being validated now.</p>
+            <p>The project is ready to move into a funded six-month build-and-test programme.</p>
 
             <ol class="investment__path" aria-label="Investment milestone path">
               <li class="is-active"><span>Research</span><i aria-hidden="true"></i></li>
@@ -915,17 +945,27 @@
               <li><span>Scale</span><i aria-hidden="true"></i></li>
             </ol>
 
-            <a class="investment__contact" href="mailto:hello@virtuhai.com">
+            <a class="investment__contact" href="mailto:info@nvip.com.ua">
               <span>Start a conversation</span>
               <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
             </a>
-            <p class="investment__email">hello@virtuhai.com</p>
+            <p class="investment__email">info@nvip.com.ua</p>
           </aside>
         </div>
       </div>
     </section>
 
   </main>
+
+  <dialog class="product-modal" data-product-modal aria-labelledby="product-modal-title">
+    <div class="product-modal__content">
+      <div class="product-modal__bar">
+        <p id="product-modal-title" data-product-modal-title>VIRTUHAI</p>
+        <button class="product-modal__close" type="button" data-product-modal-close aria-label="Close infographic">×</button>
+      </div>
+      <img data-product-modal-image src="" alt="" width="1600" height="900">
+    </div>
+  </dialog>
 
   <!-- ============================================================
        FOOTER
@@ -953,19 +993,19 @@
 
         <div class="site-footer__contact">
           <p class="site-footer__label">Contact</p>
-          <a href="mailto:hello@virtuhai.com">hello@virtuhai.com</a>
+          <a href="mailto:info@nvip.com.ua">info@nvip.com.ua</a>
           <a href="https://github.com/virtuhai" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           <p class="site-footer__social">More channels coming soon.</p>
         </div>
       </div>
 
       <div class="site-footer__bottom">
-        <p>© 2026 VIRTUHAI. All rights reserved.</p>
+        <p>© 2026 VIRTUHAI Ukraine. All rights reserved.</p>
         <a href="#hero" data-scroll>Back to top <svg aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
       </div>
     </div>
   </footer>
 
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=20260724-2"></script>
 </body>
 </html>

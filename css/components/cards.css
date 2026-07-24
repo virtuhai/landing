@@ -70,7 +70,7 @@
   align-items: center;
   gap: 0.4rem;
   width: max-content;
-  max-width: 110px;
+  max-width: 118px;
   text-align: center;
 }
 
@@ -78,8 +78,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: clamp(2.6rem, 4.4vw, 3.4rem);
+  height: clamp(2.6rem, 4.4vw, 3.4rem);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-line);
   background: color-mix(in srgb, var(--color-surface) 60%, transparent);
@@ -91,8 +91,8 @@
 }
 
 .orbit__node-icon svg {
-  width: 40px;
-  height: 40px;
+  width: 62%;
+  height: 62%;
 }
 
 .orbit__node-label {
@@ -100,6 +100,10 @@
   font-weight: 500;
   line-height: 1.25;
   color: var(--color-mist);
+}
+
+.orbit__node--top .orbit__node-label {
+  margin-top: 0.1rem;
 }
 
 /* Labels are dropped on narrow screens — the compact orbit keeps
